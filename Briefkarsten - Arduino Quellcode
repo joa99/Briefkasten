@@ -33,7 +33,7 @@ void loop() {
 
   ldrWert = analogRead(analogPin);
 
-  if (ldrWert < 300) {
+  if (ldrWert < 900) {
 
     Serial.println("Post ist da!");
 
@@ -41,7 +41,7 @@ void loop() {
 
   }
 
-  if (ldrWert > 300) {
+  if (ldrWert > 900) {
 
     Serial.println("Leerer Karsten"); //leer
 
@@ -69,8 +69,7 @@ void loop() {
 
       Serial.println("Briefkarsten wird geschlossen");
       delay(1000);
-      //Serial.println(6);
-
+ 
     }
 
     else if (x == '0') {
