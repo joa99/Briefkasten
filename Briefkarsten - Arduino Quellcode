@@ -1,4 +1,4 @@
-int flash = 6;
+int flash = 12;
 
 int analogPin = 0;
 
@@ -11,16 +11,23 @@ int buttonState = LOW;
 int x = 0;
 
 int led = 13;
+int led1= 10;
+int led2=11;
 
-
+#include <Stepper.h>
+int steps = 2028;
+Stepper stepper(steps, 2, 4, 3, 5);
 
 void setup() {
+  stepper.setSpeed(10);
 
   Serial.begin(9600);
 
   pinMode(flash, OUTPUT);
-
+ 
   pinMode(led, OUTPUT);
+  pinMode(led1, OUTPUT);
+  pinMode(led2, OUTPUT);
 
   pinMode(schalter, INPUT);
 
@@ -33,7 +40,7 @@ void loop() {
 
   ldrWert = analogRead(analogPin);
 
-  if (ldrWert < 900) {
+  if (ldrWert < 550) {
 
     Serial.println("Post ist da!");
 
@@ -41,7 +48,7 @@ void loop() {
 
   }
 
-  if (ldrWert > 900) {
+  if (ldrWert > 550) {
 
     Serial.println("Leerer Karsten"); //leer
 
@@ -56,7 +63,8 @@ void loop() {
     if (x == '1') {
 
       digitalWrite(led, HIGH);
-      //delay(5000);
+      stepper.step(200);
+      delay(2000);
 
       buttonState = digitalRead(schalter);
 
@@ -64,17 +72,20 @@ void loop() {
         buttonState = digitalRead(schalter);
         delay(1000);
       }
+      
 
       digitalWrite(led, LOW);
+      stepper.step(-200);
 
       Serial.println("Briefkarsten wird geschlossen");
       delay(1000);
- 
-    }
+      }
+    
 
     else if (x == '0') {
 
       digitalWrite(led, LOW);
+      
 
     }
     else {
