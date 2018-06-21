@@ -46,7 +46,7 @@ void loop() {
     Serial.println("Leerer Karsten"); //leer
 
     delay(2000);
-
+    
   }
 
   if (Serial.available() > 0) {
